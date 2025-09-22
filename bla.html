@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Viagem Calculadora</title>
+</head>
+<body>
+    <h2>Calculadora de Viagem</h2>
+    <form id="viagemForm">
+        <label>Distância da viagem (km): <input type="number" step="any" id="distancia" required></label><br>
+        <label>Valor dos pedágios (R$): <input type="number" step="any" id="valorpedagios" required></label><br>
+        <label>Consumo do carro (km/l): <input type="number" step="any" id="consumo" required></label><br>
+        <label>Preço do combustível (R$/l): <input type="number" step="any" id="valorcombustivel" required></label><br>
+        <label>Preço de hospedagem e alimentação (R$): <input type="number" step="any" id="alimentacaohospedagem" required></label><br>
+        <label>Preço cobrado por km (R$): <input type="number" step="any" id="preco" required></label><br>
+        <button type="button" onclick="calcular()">Calcular</button>
+    </form>
+    <pre id="resultado"></pre>
+
+    <script>
+        function calcular() {
+            const distancia = parseFloat(document.getElementById('distancia').value);
+            const valorpedagios = parseFloat(document.getElementById('valorpedagios').value);
+            const consumo = parseFloat(document.getElementById('consumo').value);
+            const valorcombustivel = parseFloat(document.getElementById('valorcombustivel').value);
+            const alimentacaohospedagem = parseFloat(document.getElementById('alimentacaohospedagem').value);
+            const preco = parseFloat(document.getElementById('preco').value);
+
+            const valorporkm = distancia * preco;
+            const gastoporkm = (distancia / consumo) * valorcombustivel;
+            const gasto_total = gastoporkm + valorpedagios + alimentacaohospedagem;
+            const lucro = valorporkm - gasto_total;
+
+            document.getElementById('resultado').textContent =
+                `O valor total cobrado será R$${valorporkm.toFixed(2)}\n` +
+                `O gasto com consumo será R$${gastoporkm.toFixed(2)}\n` +
+                `O lucro final será R$${lucro.toFixed(2)}`;
+        }
+    </script>
+</body>
+</html>
